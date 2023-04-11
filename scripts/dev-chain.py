@@ -64,7 +64,7 @@ Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final output
-Final output: the final output to the original input
+Final output: the final output to the original task
 
 Begin! Remember to be act as a Virtual Assistant, get information about your current running enviroiment, os, directory, etc. you only have access to the authorized tools.
 
@@ -98,7 +98,7 @@ class CustomOutputParser(AgentOutputParser):
     def parse(self, llm_output: str) -> Union[AgentAction, AgentFinish]:
         if "Final output:" in llm_output:
             return AgentFinish(
-                return_values={"output": llm_output.split("Final Answer:")[-1].strip()},
+                return_values={"output": llm_output.split("Final output:")[-1].strip()},
                 log=llm_output,
             )
         # Splitting the text into action and input using regex
